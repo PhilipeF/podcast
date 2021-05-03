@@ -28,14 +28,16 @@ type HomeProps = {
 };
 
 export default function Home({ latesEpisodes, allEpisodes }: HomeProps) {
-  const { play } = useContext(PlayerContext);
+  const { playList } = useContext(PlayerContext);
+
+  const episodeList = [...latesEpisodes, ...allEpisodes];
 
   return (
     <div className={styles.homepage}>
       <section className={styles.latestEpisodes}>
         <h2> Tocando agora </h2>
         <ul>
-          {latesEpisodes.map((episode) => {
+          {latesEpisodes.map((episode, index) => {
             return (
               <li key={episode.id}>
                 <Image
@@ -55,7 +57,10 @@ export default function Home({ latesEpisodes, allEpisodes }: HomeProps) {
                   <span>{episode.durationAsString}</span>
                 </div>
 
-                <button type='button' onClick={() => play(episode)}>
+                <button
+                  type='button'
+                  onClick={() => playList(episodeList, index)}
+                >
                   <img src='/play-green.svg' alt='Tocar Episódio' />
                 </button>
               </li>
@@ -79,7 +84,7 @@ export default function Home({ latesEpisodes, allEpisodes }: HomeProps) {
             </tr>
           </thead>
           <tbody>
-            {allEpisodes.map((epsiode) => {
+            {allEpisodes.map((epsiode, index) => {
               return (
                 <tr key={epsiode.id}>
                   <td style={{ width: 100 }}>
@@ -100,7 +105,12 @@ export default function Home({ latesEpisodes, allEpisodes }: HomeProps) {
                   <td style={{ width: 100 }}>{epsiode.publishedAt}</td>
                   <td>{epsiode.durationAsString}</td>
                   <td>
-                    <button type='button'>
+                    <button
+                      type='button'
+                      onClick={() =>
+                        playList(episodeList, index + latesEpisodes.length)
+                      }
+                    >
                       <img src='/play-green.svg' alt='Tocar episódio' />
                     </button>
                   </td>
