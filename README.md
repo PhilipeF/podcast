@@ -2,7 +2,6 @@
    <img alt="podcastr" src=".github/logo.svg" width="40%"/>
    <h3>O melhor para você ouvir, sempre</h3>
 </div>
-<br/>
 <div align="center">   
    </br>
    </br>
